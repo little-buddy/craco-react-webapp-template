@@ -1,36 +1,36 @@
 module.exports = {
-	parser: '@typescript-eslint/parser',
+	extends: ['airbnb - typescript - prettier'],
 	parserOptions: {
 		ecmaVersion: 2018,
 		sourceType: 'module',
 		project: './tsconfig.json',
 		ecmaFeatures: {
-			jsx: true,
-			useJSXTextNode: true
-		}
+			jsx: 'react',
+			useJSXTextNode: true,
+		},
 	},
-
-	extends: [
-		'airbnb-typescript',
-		'airbnb/hooks',
-		'plugin:@typescript-eslint/recommended',
-		'plugin:jest/recommended',
-		'prettier',
-		'prettier/react',
-		'prettier/@typescript-eslint',
-		'plugin:prettier/recommended'
-	],
-	plugins: ['react', 'react-hooks', '@typescript-eslint', 'jest', 'prettier'],
 	env: {
 		browser: true,
 		node: true,
 		es6: true,
-		jest: true
+		jest: true,
 	},
 	globals: {
 		/* global data readnonly */
 	},
 	rules: {
+		'prettier/prettier': 'warn',
+		'import/extensions': [
+			'error',
+			'ignorePackages',
+			{
+				js: 'never',
+				jsx: 'never',
+				ts: 'never',
+				tsx: 'never',
+			},
+		],
+
 		'no-control-regex': 0,
 		'no-undef': 0,
 		'no-unused-vars': 'off',
@@ -54,23 +54,13 @@ module.exports = {
 		'prettier/prettier': [
 			'error',
 			{
-				endOfLine: 'auto'
-			}
+				endOfLine: 'auto',
+			},
 		],
-		'import/extensions': [
-			'error',
-			'ignorePackages',
-			{
-				js: 'never',
-				jsx: 'never',
-				ts: 'never',
-				tsx: 'never'
-			}
-		]
 	},
 	settings: {
 		react: {
-			version: 'detect'
-		}
-	}
-}
+			version: 'detect',
+		},
+	},
+};

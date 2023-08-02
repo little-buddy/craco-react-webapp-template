@@ -116,3 +116,18 @@ preProcesser的配置，例如less和sass
 
 PostCSS Normalize lets you use the parts of normalize.css or sanitize.css that you need from your browserslist.
 ```
+
+```
+遇到这个问题 Error resolving prettier configuration for
+直接重启一下VsCode就好了
+```
+
+````
+报错: 'React' is declared but its value is never read
+
+{
+  "compilerOptions": {
+    "jsx": "react",
+  },
+}```
+````

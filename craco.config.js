@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const isAnalyze = process.env.ANALYZE
-const path = require('path')
-const webpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const webpack = require('webpack')
+const isAnalyze = process.env.ANALYZE;
+const path = require('path');
+const webpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const webpack = require('webpack');
 
-const addPath = (dir) => path.resolve(__dirname, dir)
+const addPath = dir => path.resolve(__dirname, dir);
 
 /* 
 	carco 的 babel 只能在 carco.config.js 里面配置
@@ -16,22 +16,21 @@ module.exports = {
 	webpack: {
 		configure: (webpackConfig, { env, paths }) => {
 			// 打包 moment 指定语言，一般moment 也是用dayjs 来替代的
-			webpackConfig.plugins.push(new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/))
+			webpackConfig.plugins.push(new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/));
 			// analyze
-			if (isAnalyze) webpackConfig.plugins.push(new webpackBundleAnalyzer())
+			if (isAnalyze) webpackConfig.plugins.push(new webpackBundleAnalyzer());
 
-			return webpackConfig
+			return webpackConfig;
 		},
 		babel: {},
 		style: {
 			postcss: {
-				mode: 'file'
-			}
+				mode: 'file',
+			},
 		},
 		eslint: {
-			mode: 'file'
+			mode: 'file',
 		},
-
 		externals: {
 			// cdn 资源不打包
 		},
@@ -43,7 +42,7 @@ module.exports = {
 			'@store': addPath('./src/store'),
 			'@constants': addPath('./src/constants'),
 			'@utility': addPath('./src/utility'),
-			'@hooks': addPath('./src/hooks')
-		}
-	}
-}
+			'@hooks': addPath('./src/hooks'),
+		},
+	},
+};
