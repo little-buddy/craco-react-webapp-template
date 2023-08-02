@@ -31,3 +31,4 @@ yarn-error.log\*
 .env.production
 
 stats.json
+yarn-error.lock

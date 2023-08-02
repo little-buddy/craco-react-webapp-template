@@ -122,12 +122,26 @@ PostCSS Normalize lets you use the parts of normalize.css or sanitize.css that y
 直接重启一下VsCode就好了
 ```
 
-````
+```
 报错: 'React' is declared but its value is never read
 
 {
   "compilerOptions": {
     "jsx": "react",
   },
-}```
-````
+}
+```
+
+```
+(ESLint/Cypress): Parsing error: ESLint was configured to run on `<tsconfigRootDir>/component/TestComponent.cy.ts` using `parserOptions.project`
+
+需要删除 // project: 'tsconfig.json' 并重启
+```
+
+```
+prettier.resolveConfig.sync is not a function 一直报错
+
+eslint-plugin-prettier@5.0.0
+prettier@3.0.0
+依旧是不兼容报错...
+```

@@ -5,15 +5,13 @@ import NotFoundPage from './pages/NotFoundPage';
 import { ROUTES } from './resources/routes-constants';
 // import './styles/main.sass'
 
-const RootComponent: React.FC = () => {
-	return (
-		<Router>
-			<Routes>
-				<Route path="*" element={<NotFoundPage />} />
-				<Route path={ROUTES.HOMEPAGE_ROUTE} element={<HomePage />} />
-			</Routes>
-		</Router>
-	);
-};
+const RootComponent: React.FC = () => (
+	<Router>
+		<Routes>
+			<Route path="*" element={<NotFoundPage />} />
+			<Route path={ROUTES.HOMEPAGE_ROUTE} element={<HomePage />} />
+		</Routes>
+	</Router>
+);
 
 export default RootComponent;

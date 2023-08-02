@@ -27,6 +27,7 @@ export const register = (config?: Config): void => {
 		window.addEventListener('load', () => {
 			const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 			if (isLocalhost) {
+				// eslint-disable-next-line @typescript-eslint/no-use-before-define
 				checkValidServiceWorker(swUrl, config);
 				navigator.serviceWorker.ready.then(() => {
 					console.log(
@@ -35,6 +36,7 @@ export const register = (config?: Config): void => {
 					);
 				});
 			} else {
+				// eslint-disable-next-line @typescript-eslint/no-use-before-define
 				registerValidSW(swUrl, config);
 			}
 		});
@@ -45,6 +47,7 @@ function registerValidSW(swUrl: string, config?: Config) {
 	navigator.serviceWorker
 		.register(swUrl)
 		.then(registration => {
+			// eslint-disable-next-line no-param-reassign
 			registration.onupdatefound = () => {
 				const installingWorker = registration.installing;
 				if (installingWorker == null) {
