@@ -4,6 +4,9 @@
 
 .bg-hello-do {
 	display: flex;
-	user-select: none;
 	flex: 1 0 calc(1vw - 1px);
+	width: auto;
+	color: #fff;
+	user-select: none;
+	background-color: rebeccapurple;
 }

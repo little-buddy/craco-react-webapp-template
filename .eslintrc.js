@@ -13,7 +13,9 @@ module.exports = {
 		// "prettier/@typescript-eslint",
 	],
 	plugins: ['react', 'jsx-a11y', 'import', 'prettier', '@typescript-eslint'],
-	globals: {},
+	globals: {
+		require: true,
+	},
 	rules: {
 		// prettier
 		'prettier/prettier': ['error'],
@@ -45,6 +47,7 @@ module.exports = {
 			},
 		],
 		'import/prefer-default-export': 'off',
+		'import/no-extraneous-dependencies': 'off',
 	},
 	settings: {
 		'import/resolver': {

@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const isAnalyze = process.env.ANALYZE;
 const path = require('path');
-const webpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack');
+const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 const addPath = dir => path.resolve(__dirname, dir);
 
@@ -14,11 +15,17 @@ module.exports = {
 	// 自定义 fork 的react-scripts 路径
 	// reactScriptsVersion:''
 	webpack: {
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		configure: (webpackConfig, { env, paths }) => {
 			// 打包 moment 指定语言，一般moment 也是用dayjs 来替代的
 			webpackConfig.plugins.push(new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/));
 			// analyze
-			if (isAnalyze) webpackConfig.plugins.push(new webpackBundleAnalyzer());
+			if (isAnalyze) webpackConfig.plugins.push(new WebpackBundleAnalyzer());
+
+			webpackConfig.plugins.push(
+				new StyleLintPlugin()
+				// 默认处理['css', 'scss', 'sass']
+			);
 
 			return webpackConfig;
 		},

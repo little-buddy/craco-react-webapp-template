@@ -6,5 +6,6 @@ module.exports = {
 	corePlugins: {
 		aspectRatio: false,
 	},
+	// eslint-disable-next-line global-require
 	plugins: [require('@tailwindcss/aspect-ratio'), require('@tailwindcss/typography')],
 };

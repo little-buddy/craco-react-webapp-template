@@ -145,3 +145,9 @@ eslint-plugin-prettier@5.0.0
 prettier@3.0.0
 依旧是不兼容报错...
 ```
+
+### stylelint配置
+
+```
+stylelint-config-prettier 官方已弃用，无需安装
+```
