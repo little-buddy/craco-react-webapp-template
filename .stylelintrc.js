@@ -1,12 +1,5 @@
+/* 更多用于本地 vascode 的格式化 */
 module.export = {
-  "processors":[
-    "stylelint-processor-styled-components"
-  ],
-  extends:[
-    "stylelint-config-recommended",
-    "stylelint-config-styled-components",
-    "stylelint-order",
-    "stylelint-config-prettier"
-  ],
-  "ignoreFiles": ["**/*.js"]
+	extends: ['stylelint-config-recommended', 'stylelint-order', 'stylelint-config-prettier', 'stylelint-config-standard'],
+	ignoreFiles: ['**/*.js']
 }
