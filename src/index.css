@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-hello-do {
+	display: flex;
+	user-select: none;
+	flex: 1 0 calc(1vw - 1px);
+}

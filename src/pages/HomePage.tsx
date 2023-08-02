@@ -2,12 +2,12 @@ import React from 'react'
 import DateDisplay from '../components/DateDisplay'
 
 const HomePage: React.FC = () => {
-    return (
-        <div style={{ position: 'relative', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-            <h1 style={{ fontSize: '4em' }}>Hello world!</h1>
-            <DateDisplay />
-        </div>
-    )
+	return (
+		<div className=" bg-hello-do mt-8 grid text-orange-400   w-full relative justify-center items-center flex-col">
+			<h1 className="aspect-w-4 aspect-h-3 text-4xl">Hello world!</h1>
+			<DateDisplay />
+		</div>
+	)
 }
 
 export default HomePage

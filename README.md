@@ -85,3 +85,34 @@
 	resolve-url-loader 解决 scss 文件依赖问题
 
 ```
+
+```
+rem 主要用在字体上
+vw用在 width、height、padding、margin、bordr 上 ，再加上媒体查询断点处理
+```
+
+### react-scripts 对于 postcss 的配置
+
+```
+开发环境 -> style-loader
+生产环境 -> MiniCssExtractPlugin.loader
+同一的
+	css-loader 由外界cssOptions 进行控制
+	post-loader 会判断是否使用 tailwindcss
+		用 ->	tailwindcss
+					postcss-flexbugs-fixes
+					postcss-preset-env
+					autoprefixer: {flexbox: 'no-2009',}
+          stage: 3
+		不用 ->
+				postcss-flexbugs-fixes
+				postcss-preset-env
+				autoprefixer
+				stage
+				postcss-normalize
+
+resolve-url-loader
+preProcesser的配置，例如less和sass
+
+PostCSS Normalize lets you use the parts of normalize.css or sanitize.css that you need from your browserslist.
+```

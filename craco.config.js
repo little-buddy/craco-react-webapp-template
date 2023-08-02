@@ -6,6 +6,10 @@ const webpack = require('webpack')
 
 const addPath = (dir) => path.resolve(__dirname, dir)
 
+/* 
+	carco 的 babel 只能在 carco.config.js 里面配置
+ */
+
 module.exports = {
 	// 自定义 fork 的react-scripts 路径
 	// reactScriptsVersion:''
@@ -17,6 +21,15 @@ module.exports = {
 			if (isAnalyze) webpackConfig.plugins.push(new webpackBundleAnalyzer())
 
 			return webpackConfig
+		},
+		babel: {},
+		style: {
+			postcss: {
+				mode: 'file'
+			}
+		},
+		eslint: {
+			mode: 'file'
 		},
 
 		externals: {
