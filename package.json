@@ -37,6 +37,7 @@
     "@types/react-dom": "^18.2.7",
     "@types/react-redux": "^7.1.25",
     "cross-env": "^7.0.3",
+    "postcss-plugin-px2rem": "^0.8.1",
     "typescript": "^5.1.6",
     "webpack-bundle-analyzer": "^4.9.0"
   },
