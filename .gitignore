@@ -29,3 +29,5 @@ yarn-error.log\*
 
 .env.dev
 .env.production
+
+stats.json

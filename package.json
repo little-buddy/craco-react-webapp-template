@@ -26,7 +26,8 @@
     "build": "craco build",
     "test": "craco test",
     "lint": "eslint --cache .",
-    "format": "prettier --check ."
+    "format": "prettier --check .",
+    "analyze": "cross-env ANALYZE=true yarn build"
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
@@ -35,10 +36,12 @@
     "@types/react": "^18.2.18",
     "@types/react-dom": "^18.2.7",
     "@types/react-redux": "^7.1.25",
-    "typescript": "^5.1.6"
+    "cross-env": "^7.0.3",
+    "typescript": "^5.1.6",
+    "webpack-bundle-analyzer": "^4.9.0"
   },
   "homepage": ".",
-	"browserslist": {
+  "browserslist": {
     "production": [
       ">0.2%",
       "not dead",
@@ -50,14 +53,14 @@
       "last 1 safari version"
     ]
   },
-	"husky":{
-		"hooks":{
-			"pre-commit":"lint-staged"
-		}
-	},
-	"lint-staged":{
-		"src/**/*.{js,jsx,ts,tsx,json,css,scss,md}":[
-			"prettier --write"
-		]
-	}
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  }
 }
