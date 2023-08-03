@@ -18,7 +18,7 @@ module.exports = {
 	},
 	rules: {
 		// prettier
-		'prettier/prettier': ['error'],
+		'prettier/prettier': 'off',
 		// TypeScript
 		'@typescript-eslint/no-unused-vars': 'error',
 		'@typescript-eslint/explicit-member-accessibility': 'off',
@@ -31,23 +31,28 @@ module.exports = {
 		// React
 		'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
 		'react/prop-types': ['off', {}],
-		'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
+		'react/function-component-definition': [
+			2,
+			{ namedComponents: 'arrow-function' },
+		],
 		'jsx-a11y/click-events-have-key-events': 'off',
 		'jsx-a11y/no-static-element-interactions': 'off',
 		// import
-		'import/extensions': [
-			'error',
-			'ignorePackages',
-			{
-				js: 'never',
-				mjs: 'never',
-				jsx: 'never',
-				ts: 'never',
-				tsx: 'never',
-			},
-		],
+		// 'import/extensions': [
+		// 	'error',
+		// 	'ignorePackages',
+		// 	{
+		// 		js: 'never',
+		// 		mjs: 'never',
+		// 		jsx: 'never',
+		// 		ts: 'never',
+		// 		tsx: 'never',
+		// 	},
+		// ],
+		'import/extensions': 'off',
 		'import/prefer-default-export': 'off',
 		'import/no-extraneous-dependencies': 'off',
+		'import/no-unresolved': 'off',
 	},
 	settings: {
 		'import/resolver': {
