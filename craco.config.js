@@ -6,6 +6,7 @@ const WebpackBundleAnalyzer =
 	require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const WepbackBar = require('webpackbar');
+const Smp = require('speed-measure-webpack-plugin');
 
 const addPath = dir => path.resolve(__dirname, dir);
 
@@ -23,7 +24,7 @@ module.exports = () => {
 	return {
 		// 自定义 fork 的react-scripts 路径
 		// reactScriptsVersion:''
-		webpack: {
+		webpack: new Smp().wrap({
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			configure: (webpackConfig, { env, paths }) => {
 				// 打包 moment 指定语言，一般moment 也是用dayjs 来替代的
@@ -41,7 +42,12 @@ module.exports = () => {
 				return webpackConfig;
 			},
 			plugins: [new WepbackBar()],
-			babel: {},
+			babel: {
+				// react 默认配置了
+				// loaderOptions: {
+				// 	cacheDirectory: true,
+				// },
+			},
 			style: {
 				postcss: {
 					mode: 'file',
@@ -56,6 +62,6 @@ module.exports = () => {
 			alias: {
 				'@': addPath('./src'),
 			},
-		},
+		}),
 	};
 };
