@@ -3,6 +3,4 @@
  * @param userName The user's first name
  * @returns A kind greeting message
  */
-export const sayHello = (userName: string): string => {
-	return 'Welcome ' + userName + '!';
-};
+export const sayHello = (userName: string): string => `Welcome ${userName}!`;

@@ -126,6 +126,8 @@ const refactorEntry = config => {
 	});
 };
 
+// Override webpack optimization
+// See https://github.com/dilanx/craco/issues/44
 const splitChunks = config => {
 	config.optimization.splitChunks = {
 		cacheGroups: {
