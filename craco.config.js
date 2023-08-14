@@ -9,6 +9,7 @@ const WebpackBundleAnalyzer =
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const WepbackBar = require('webpackbar');
 const Smp = require('speed-measure-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const PreloadWebapckPlugin = require('@vue/preload-webpack-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
@@ -63,11 +64,16 @@ module.exports = () => {
 				};
 
 				removePlugins(config, (value, index, array) => {
-					if (
-						Object.getPrototypeOf(array[index]).constructor.name ===
-						'WebpackManifestPlugin'
-					) {
-						if (!(array[index] instanceof WebpackManifestPlugin)) {
+					const pluginName = Object.getPrototypeOf(array[index]).constructor
+						.name;
+
+					if (pluginName === 'HtmlWebpackPlugin' && index !== 0) {
+						return true;
+					}
+
+					if (['WebpackManifestPlugin'].indexOf(pluginName) > -1) {
+						const plugin = array[index];
+						if (!(plugin instanceof WebpackManifestPlugin)) {
 							return true;
 						}
 					}
@@ -78,6 +84,40 @@ module.exports = () => {
 				return config;
 			},
 			plugins: [
+				[
+					new HtmlWebpackPlugin({
+						inject: 'body',
+						template: addPath('./public/index.html'),
+						// external的js-cdn 可以配置在这里
+						cdn: {
+							js: [
+								'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js',
+								'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js',
+								'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js',
+								'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js',
+							],
+							css: [],
+						},
+						...(isEnvProduction
+							? {
+									minify: {
+										removeComments: true,
+										collapseWhitespace: true,
+										removeRedundantAttributes: true,
+										useShortDoctype: true,
+										removeEmptyAttributes: true,
+										removeStyleLinkTypeAttributes: true,
+										keepClosingSlash: true,
+										minifyJS: true,
+										minifyCSS: true,
+										minifyURLs: true,
+									},
+							  }
+							: undefined),
+					}),
+					'prepend',
+				],
+
 				new WepbackBar(),
 				new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/),
 				// 默认处理['css', 'scss', 'sass']
