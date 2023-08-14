@@ -15,3 +15,23 @@ Extends [ChrisUser/cra-template-complete-web-app](https://github.com/ChrisUser/c
 | yarn prettier | prettier 检查       |
 | yarn format   | prettier 修复       |
 | yarn analyze  | 分析bundler体积大小 |
+
+### 对于第三方库的抽离
+
+Step1
+
+```
+在 externals 里面声明
+```
+
+Step2
+
+```
+在 htmlWebpackPlugin -> cdn 内配置对应的 js 和 css 链接
+```
+
+Then
+
+```
+打包的时候就会自动注入
+```
