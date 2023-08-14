@@ -9,7 +9,7 @@ const WebpackBundleAnalyzer =
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const WepbackBar = require('webpackbar');
 const Smp = require('speed-measure-webpack-plugin');
-const PreloadWebapckPlugin = require('@vue/preload-webpack-plugin');
+// const PreloadWebapckPlugin = require('@vue/preload-webpack-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 const isEnvProduction = process.env.NODE_ENV === 'production';
@@ -125,6 +125,16 @@ module.exports = () => {
 				// loaderOptions: {
 				// 	cacheDirectory: true,
 				// },
+				plugins: [
+					[
+						'import',
+						{
+							libraryName: 'lodash',
+							libraryDirectory: '',
+							camel2DashComponentName: false,
+						},
+					],
+				],
 			},
 			style: {
 				postcss: {
