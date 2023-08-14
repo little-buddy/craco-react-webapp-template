@@ -1,13 +1,18 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const isAnalyze = process.env.ANALYZE;
 const path = require('path');
+const { when, removePlugins } = require('@craco/craco');
+
 const webpack = require('webpack');
 const WebpackBundleAnalyzer =
 	require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const WepbackBar = require('webpackbar');
 const Smp = require('speed-measure-webpack-plugin');
+const PreloadWebapckPlugin = require('@vue/preload-webpack-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
+const isEnvProduction = process.env.NODE_ENV === 'production';
 const addPath = dir => path.resolve(__dirname, dir);
 
 /* 
@@ -19,29 +24,102 @@ const addPath = dir => path.resolve(__dirname, dir);
 	see https://github.com/dilanx/craco/issues/518
  */
 module.exports = () => {
-	console.log('run get craco-config-object');
+	console.log(isEnvProduction, 'run get craco-config-object');
 
 	return {
 		// 自定义 fork 的react-scripts 路径
 		// reactScriptsVersion:''
 		webpack: new Smp().wrap({
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			configure: (webpackConfig, { env, paths }) => {
-				// 打包 moment 指定语言，一般moment 也是用dayjs 来替代的
-				webpackConfig.plugins.push(
-					new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/)
-				);
-				// analyze
-				if (isAnalyze) webpackConfig.plugins.push(new WebpackBundleAnalyzer());
+			configure: (config, { env, paths }) => {
+				// eslint-disable-next-line no-param-reassign
+				config.entry = {
+					app: config.entry,
+				};
+				// eslint-disable-next-line no-param-reassign
+				config.optimization.splitChunks = {
+					cacheGroups: {
+						reactLib: {
+							test: /[\\/]node_modules[\\/](react|react-dom|react-router-dom|@reduxjs\/toolkit\/dist)[\\/]/,
+							name: 'react-lib',
+							chunks: 'all',
+							enforce: true,
+							priority: 40,
+							reuseExistingChunk: true,
+						},
+						vendors: {
+							name: `chunk-vendors`,
+							test: /[\\/]node_modules[\\/]/,
+							priority: -10,
+							chunks: 'initial',
+						},
+						common: {
+							name: `chunk-common`,
+							minChunks: 2,
+							priority: -20,
+							chunks: 'initial',
+							reuseExistingChunk: true,
+						},
+					},
+				};
 
-				webpackConfig.plugins.push(
-					new StyleLintPlugin()
-					// 默认处理['css', 'scss', 'sass']
-				);
+				removePlugins(config, (value, index, array) => {
+					if (
+						Object.getPrototypeOf(array[index]).constructor.name ===
+						'WebpackManifestPlugin'
+					) {
+						if (!(array[index] instanceof WebpackManifestPlugin)) {
+							return true;
+						}
+					}
 
-				return webpackConfig;
+					return false;
+				});
+
+				return config;
 			},
-			plugins: [new WepbackBar()],
+			plugins: [
+				new WepbackBar(),
+				new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/),
+				// 默认处理['css', 'scss', 'sass']
+				new StyleLintPlugin(),
+				...when(isAnalyze, () => [new WebpackBundleAnalyzer()], []),
+				// preload
+				// [
+				// 	new PreloadWebapckPlugin({
+				// 		rel: 'preload',
+				// 		include: 'initial',
+				// 		fileBlacklist: [/\.map$/, /hot-update\.js$/],
+				// 	}),
+				// 	'append',
+				// ],
+				// // prefetch
+				// [
+				// 	new PreloadWebapckPlugin({
+				// 		rel: 'prefetch',
+				// 		include: 'asyncChunks',
+				// 	}),
+				// 	'append',
+				// ],
+				new WebpackManifestPlugin({
+					fileName: 'asset-manifest.json',
+					// publicPath: paths.publicUrlOrPath,
+					generate: (seed, files, entrypoints) => {
+						const manifestFiles = files.reduce((manifest, file) => {
+							// eslint-disable-next-line no-param-reassign
+							manifest[file.name] = file.path;
+							return manifest;
+						}, seed);
+						const entrypointFiles = entrypoints.app.filter(
+							fileName => !fileName.endsWith('.map')
+						);
+
+						return {
+							files: manifestFiles,
+							entrypoints: entrypointFiles,
+						};
+					},
+				}),
+			],
 			babel: {
 				// react 默认配置了
 				// loaderOptions: {
