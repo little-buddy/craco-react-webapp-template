@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const WebpackBundleAnalyzer =
 	require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const StyleLintPlugin = require('stylelint-webpack-plugin');
+const WepbackBar = require('webpackbar');
 
 const addPath = dir => path.resolve(__dirname, dir);
 
@@ -39,6 +40,7 @@ module.exports = () => {
 
 				return webpackConfig;
 			},
+			plugins: [new WepbackBar()],
 			babel: {},
 			style: {
 				postcss: {
