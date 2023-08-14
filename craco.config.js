@@ -90,12 +90,7 @@ module.exports = () => {
 						template: addPath('./public/index.html'),
 						// external的js-cdn 可以配置在这里
 						cdn: {
-							js: [
-								'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js',
-								'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js',
-								'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js',
-								'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js',
-							],
+							js: [],
 							css: [],
 						},
 						...(isEnvProduction
