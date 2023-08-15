@@ -35,7 +35,8 @@ module.exports = () => {
 		webpack: new Smp().wrap({
 			configure: (config, { env, paths }) => {
 				refactorEntry(config);
-				splitChunks(config);
+				// eslint-disable-next-line no-unused-expressions
+				isEnvProduction && splitChunks(config);
 
 				return config;
 			},
