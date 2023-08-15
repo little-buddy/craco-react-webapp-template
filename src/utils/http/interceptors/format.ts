@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import { isArray, isObject } from 'lodash';
 
 const toCamelCase = (value: any): any => {
@@ -45,7 +45,7 @@ export const toSnackCase = (value: any): any => {
 
 // format data standard
 export default (http: AxiosInstance) => {
-	http.interceptors.request.use((config: AxiosRequestConfig) =>
+	http.interceptors.request.use((config: InternalAxiosRequestConfig) =>
 		Object.create(config, { data: toSnackCase(config.data) })
 	);
 	http.interceptors.response.use(response =>
