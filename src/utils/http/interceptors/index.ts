@@ -1,10 +1,12 @@
 import { AxiosInstance } from 'axios';
-import auth from './auth';
+// import auth from './auth';
 import format from './format';
-import timeout from './timeout';
+// import timeout from './timeout';
+import logger from './logger';
 
 export const use = (http: AxiosInstance) => {
-	auth(http);
+	// auth(http);
+	logger(http);
 	format(http);
-	timeout(http);
+	// timeout(http);
 };

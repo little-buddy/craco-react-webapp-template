@@ -3,6 +3,13 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import RootComponent from './RootComponent';
 import { persistor, store } from './store/reducers/store';
+// import http from '@/utils/http';
+
+// http.get('https://www.baidu.com', {
+// 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// 	// @ts-ignore
+// 	cancelTag: true,
+// });
 
 const App: React.FC = () => (
 	<Provider store={store}>
