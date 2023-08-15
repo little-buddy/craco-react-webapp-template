@@ -45,10 +45,14 @@ export const toSnackCase = (value: any): any => {
 
 // format data standard
 export default (http: AxiosInstance) => {
-	http.interceptors.request.use((config: InternalAxiosRequestConfig) =>
-		Object.create(config, { data: toSnackCase(config.data) })
-	);
-	http.interceptors.response.use(response =>
-		Object.create(response, { data: toCamelCase(response.data) })
-	);
+	http.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+		// eslint-disable-next-line no-param-reassign
+		config.data = toSnackCase(config.data);
+		return config;
+	});
+	http.interceptors.response.use(response => {
+		response.data = toCamelCase(response.data);
+
+		return response;
+	});
 };

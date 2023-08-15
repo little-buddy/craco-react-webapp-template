@@ -1,9 +1,9 @@
 import { AxiosInstance, CancelTokenSource } from 'axios';
 import auth from './auth';
-// import format from './format';
-// import timeout from './timeout';
+import format from './format';
 import logger from './logger';
 import cancel from './cancelRereq';
+import error from './error';
 
 const cancelQueue = new Map<string, CancelTokenSource>();
 
@@ -12,6 +12,6 @@ export const use = (http: AxiosInstance) => {
 	logger(http);
 	cancel(http, cancelQueue);
 	auth(http);
-	// format(http);
-	// timeout(http);
+	format(http);
+	error(http);
 };
