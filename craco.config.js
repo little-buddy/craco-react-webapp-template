@@ -67,5 +67,18 @@ module.exports = () => {
 				'@': addPath('./src'),
 			},
 		}),
+
+		devServer: {
+			proxy: {
+				'/api': {
+					target: 'https://radishes.vercel.app',
+					secure: false,
+					changeOrigin: true,
+					pathRewrite: {
+						'^/api': '/api',
+					},
+				},
+			},
+		},
 	};
 };
