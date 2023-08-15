@@ -6,15 +6,7 @@ import { persistor, store } from './store/reducers/store';
 import http from '@/utils/http';
 
 http
-	.get('https://www.baidu.com', {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-ignore
-		cancelToken: true,
-	})
-	.catch(e => console.log(e));
-
-http
-	.get('https://www.baidu.com', {
+	.get('/api/banner?type=0&timestampAxios=1692108493149', {
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
 		cancelToken: true,

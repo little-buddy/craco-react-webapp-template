@@ -10,8 +10,8 @@ const cancelQueue = new Map<string, CancelTokenSource>();
 export const use = (http: AxiosInstance) => {
 	// 中间件其实也是剥洋葱，最先调用的在最里层
 	logger(http);
-	auth(http);
 	cancel(http, cancelQueue);
+	auth(http);
 	// format(http);
 	// timeout(http);
 };
