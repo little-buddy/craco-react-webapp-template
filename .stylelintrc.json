@@ -5,7 +5,9 @@
 		"stylelint-config-standard",
 		"stylelint-config-recess-order"
 	],
-	"plugins": ["stylelint-order"],
+	"plugins": [
+		"stylelint-order"
+	],
 	"rules": {
 		"at-rule-no-unknown": null,
 		"scss/at-rule-no-unknown": [
@@ -26,5 +28,8 @@
 		"declaration-block-trailing-semicolon": "always",
 		"at-rule-semicolon-newline-after": "always"
 	},
-	"ignoreFiles": ["**/*.js", "**/*.scss"]
+	"ignoreFiles": [
+		"**/*.js",
+		"**/*.scss"
+	]
 }
