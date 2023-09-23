@@ -1,21 +1,25 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { when } = require('@craco/craco');
 
 const webpack = require('webpack');
 const WebpackBundleAnalyzer =
-	require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+  require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const WepbackBar = require('webpackbar');
 const Smp = require('speed-measure-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 const {
-	isEnvProduction,
-	addPath,
-	splitChunks,
-	getBabelConf,
-	refactorEntry,
-	isAnalyze,
+  isEnvProduction,
+  addPath,
+  splitChunks,
+  getBabelConf,
+  refactorEntry,
+  isAnalyze,
 } = require('./cracoplugin');
 
 /* 
@@ -27,58 +31,58 @@ const {
 	see https://github.com/dilanx/craco/issues/518
  */
 module.exports = () => {
-	console.log(addPath('./src'));
+  console.log(addPath('./src'));
 
-	return {
-		// 自定义 fork 的react-scripts 路径
-		// reactScriptsVersion:''
-		webpack: new Smp().wrap({
-			configure: (config, { env, paths }) => {
-				refactorEntry(config);
-				// eslint-disable-next-line no-unused-expressions
-				isEnvProduction && splitChunks(config);
+  return {
+    // 自定义 fork 的react-scripts 路径
+    // reactScriptsVersion:''
+    webpack: new Smp().wrap({
+      configure: (config, { env, paths }) => {
+        refactorEntry(config);
+        // eslint-disable-next-line no-unused-expressions
+        isEnvProduction && splitChunks(config);
 
-				return config;
-			},
-			plugins: [
-				new WepbackBar({
-					profile: true,
-					color: '#fa8c16',
-				}),
-				// new HardSourceWebpackPlugin(),
-				new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/),
-				// 默认处理['css', 'scss', 'sass']
-				new StyleLintPlugin(),
-				...when(isAnalyze, () => [new WebpackBundleAnalyzer()], []),
-			],
-			babel: getBabelConf(),
-			style: {
-				postcss: {
-					mode: 'file',
-				},
-			},
-			eslint: {
-				mode: 'file',
-			},
-			externals: {
-				// cdn 资源不打包
-			},
-			alias: {
-				'@': addPath('./src'),
-			},
-		}),
+        return config;
+      },
+      plugins: [
+        new WepbackBar({
+          profile: true,
+          color: '#fa8c16',
+        }),
+        // new HardSourceWebpackPlugin(),
+        new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/),
+        // 默认处理['css', 'scss', 'sass']
+        new StyleLintPlugin(),
+        ...when(isAnalyze, () => [new WebpackBundleAnalyzer()], []),
+      ],
+      babel: getBabelConf(),
+      style: {
+        postcss: {
+          mode: 'file',
+        },
+      },
+      eslint: {
+        mode: 'file',
+      },
+      externals: {
+        // cdn 资源不打包
+      },
+      alias: {
+        '@': addPath('./src'),
+      },
+    }),
 
-		devServer: {
-			proxy: {
-				'/api': {
-					target: 'https://radishes.vercel.app',
-					secure: false,
-					changeOrigin: true,
-					pathRewrite: {
-						'^/api': '/api',
-					},
-				},
-			},
-		},
-	};
+    devServer: {
+      proxy: {
+        '/api': {
+          target: 'https://radishes.vercel.app',
+          secure: false,
+          changeOrigin: true,
+          pathRewrite: {
+            '^/api': '/api',
+          },
+        },
+      },
+    },
+  };
 };

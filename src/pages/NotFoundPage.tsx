@@ -1,4 +1,6 @@
-import React, { PropsWithChildren, useState } from 'react';
+import type { PropsWithChildren } from 'react';
+import type React from 'react';
+import { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 // import { ROUTES } from '../resources/routes-constants';
 
@@ -34,29 +36,29 @@ import React, { PropsWithChildren, useState } from 'react';
 // children 作为 props 有自带 memo 的功能
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function AA() {
-	console.log('AA');
-	return 'AA';
+  console.log('AA');
+  return 'AA';
 }
 
 const B = ({ children }: PropsWithChildren) => {
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [v, setV] = useState(1);
-	console.log(children);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [v, setV] = useState(1);
+  console.log(children);
 
-	return (
-		<div
-			onClick={() => {
-				setV(Math.random());
-			}}
-		>
-			{children}
-		</div>
-	);
+  return (
+    <div
+      onClick={() => {
+        setV(Math.random());
+      }}
+    >
+      {children}
+    </div>
+  );
 };
 
 const A: React.FC = () => (
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
-	<B>阿斯顿发斯蒂芬</B>
+  <B>阿斯顿发斯蒂芬</B>
 );
 export default A;
